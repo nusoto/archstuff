@@ -18,8 +18,8 @@ swap
 root  
 home  
 
-mkfs.fat -F32 /dev/sdXY<boot partition>  
-mkfs.ext4 /dev/sdXY<root and home partition>  
+mkfs.fat -F32 /dev/sdXY(boot partition)  
+mkfs.ext4 /dev/sdXY(root and home partition)  
 
 mkswap /dev/sdXY  
 swapon /dev/sdXY  
@@ -40,7 +40,7 @@ pacman -Sy networkmanager neovim nano
 
 systemctl enable NetworkManager  
 
-ln -sf /usr/share/zoneinfo/<REGION>/<CITY> /etc/localtime  
+ln -sf /usr/share/zoneinfo/(REGION)/(CITY) /etc/localtime  
 
 hwclock --systohc  
 
@@ -63,7 +63,7 @@ LC_PAPER=pt_BR.UTF-8
 LC_TELEPHONE=pt_BR.UTF-8  
 LC_TIME=pt_BR.UTF-8  
 
-echo <computer-name> > /etc/hostname  
+echo (computer-name) > /etc/hostname  
 
 -FOR SSD  
 -systemctl enable fstrim.timer  
@@ -79,13 +79,13 @@ nvim /etc/hosts
 
 127.0.0.1	localhost  
 ::1		localhost  
-127.0.1.1	<computer-name>.localdomain	<computer-name>  
+127.0.1.1	(computer-name).localdomain	(computer-name)  
 
 passwd  
 
-useradd -m -G wheel -s /bin/bash <username>  
+useradd -m -G wheel -s /bin/bash (username)  
 
-passwd <username>  
+passwd (username)  
 
 EDITOR=nvim visudo  
 
@@ -144,9 +144,7 @@ cd yay-git
 
 makepkg -si  
 
-cd ~  
-
-/*chown -R <username>:<username> /usr/src*/  
+cd ~   
 
 git clone https://git.suckless.org/dwm  
 git clone https://git.suckless.org/st  
@@ -223,7 +221,7 @@ df -h
 tar -xvf  
 git clone  
 dmenu_path  
-chown -R jhin:jhin  
+chown -R (username):(username)  
 chmod +x  
 Created ~/.gnupg/gpg.conf with "keyserver pgp.mit.edu" and it works  
 patch -Np1 -i st-alpha-20180616-0.8.1.diff  
