@@ -1,271 +1,266 @@
-ping -c 3 archlinux.org
+ping -c 3 archlinux.org  
 
-efivar -l
-ls /sys/firmware/efi/efivar
+efivar -l  
+ls /sys/firmware/efi/efivar  
 
-timedatectl set-ntp true
+timedatectl set-ntp true  
 
-lsblk
+lsblk  
 
-gdisk /dev/sdX
+gdisk /dev/sdX  
 
-boot = ef00
-swap = 8200
-linuxfilesystem = 8300
+boot = ef00  
+swap = 8200  
+linuxfilesystem = 8300  
 
-boot
-swap
-root
-home
+boot  
+swap  
+root  
+home  
 
-mkfs.fat -F32 /dev/sdXY<boot partition>
-mkfs.ext4 /dev/sdXY<root and home partition>
+mkfs.fat -F32 /dev/sdXY<boot partition>  
+mkfs.ext4 /dev/sdXY<root and home partition>  
 
-mkswap /dev/sdXY
-swapon /dev/sdXY
+mkswap /dev/sdXY  
+swapon /dev/sdXY  
 
-mount /dev/sdXY(root) /mnt
-mkdir /mnt/boot
-mkdir /mnt/home
-mount /dev/sdXY(boot) /mnt/boot
-mount /dev/sdXY(home) /mnt/home
+mount /dev/sdXY(root) /mnt  
+mkdir /mnt/boot  
+mkdir /mnt/home  
+mount /dev/sdXY(boot) /mnt/boot  
+mount /dev/sdXY(home) /mnt/home  
 
-pacstrap /mnt base base-devel linux linux-firmware
+pacstrap /mnt base base-devel linux linux-firmware  
 
-genfstab -U -p /mnt >> /mnt/etc/fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab  
 
-arch-chroot /mnt
+arch-chroot /mnt  
 
-pacman -Sy networkmanager neovim nano
+pacman -Sy networkmanager neovim nano  
 
-systemctl enable NetworkManager
+systemctl enable NetworkManager  
 
-ln -sf /usr/share/zoneinfo/<REGION>/<CITY> /etc/localtime
+ln -sf /usr/share/zoneinfo/<REGION>/<CITY> /etc/localtime  
 
-hwclock --systohc
+hwclock --systohc  
 
-nvim /etc/locale.gen
+nvim /etc/locale.gen  
 
-locale-gen
+locale-gen  
 
-echo LANG=en_US.UTF-8 > /etc/locale.conf
+echo LANG=en_US.UTF-8 > /etc/locale.conf  
 
-nvim /etc/locale.conf
+nvim /etc/locale.conf  
 
-LANG=en_US.UTF-8
-LC_ADDRESS=pt_BR.UTF-8
-LC_IDENTIFICATION=pt_BR.UTF-8
-LC_MEASUREMENT=pt_BR.UTF-8
-LC_MONETARY=pt_BR.UTF-8
-LC_NAME=pt_BR.UTF-8
-LC_NUMERIC=pt_BR.UTF-8
-LC_PAPER=pt_BR.UTF-8
-LC_TELEPHONE=pt_BR.UTF-8
-LC_TIME=pt_BR.UTF-8
+LANG=en_US.UTF-8  
+LC_ADDRESS=pt_BR.UTF-8  
+LC_IDENTIFICATION=pt_BR.UTF-8  
+LC_MEASUREMENT=pt_BR.UTF-8  
+LC_MONETARY=pt_BR.UTF-8  
+LC_NAME=pt_BR.UTF-8  
+LC_NUMERIC=pt_BR.UTF-8  
+LC_PAPER=pt_BR.UTF-8  
+LC_TELEPHONE=pt_BR.UTF-8  
+LC_TIME=pt_BR.UTF-8  
 
-echo <computer-name> > /etc/hostname
+echo <computer-name> > /etc/hostname  
 
--FOR SSD
--systemctl enable fstrim.timer
+-FOR SSD  
+-systemctl enable fstrim.timer  
 
-nvim /etc/pacman.conf
+nvim /etc/pacman.conf  
 
--Scroll down and un-comment the multilib repo:
+-Scroll down and un-comment the multilib repo:  
 
-[multilib]
-Include=/etc/pacman.d/mirrorlist
+[multilib]  
+Include=/etc/pacman.d/mirrorlist  
 
-nvim /etc/hosts
+nvim /etc/hosts  
 
-127.0.0.1	localhost
-::1		localhost
-127.0.1.1	<computer-name>.localdomain	<computer-name>
+127.0.0.1	localhost  
+::1		localhost  
+127.0.1.1	<computer-name>.localdomain	<computer-name>  
 
-passwd
+passwd  
 
-useradd -m -G wheel -s /bin/bash <username>
+useradd -m -G wheel -s /bin/bash <username>  
 
-passwd <username>
+passwd <username>  
 
-EDITOR=nvim visudo
+EDITOR=nvim visudo  
 
--Uncomment:
+-Uncomment:  
 
-%wheel ALL=(ALL) ALL
+%wheel ALL=(ALL) ALL  
 
-or
+or  
 
-%wheel ALL=(ALL) NOPASSWD: ALL
+%wheel ALL=(ALL) NOPASSWD: ALL  
 
-mount -t efivarfs efivarfs
-/sys/firmware/efi/efivars
+mount -t efivarfs efivarfs  
+/sys/firmware/efi/efivars  
 
-bootctl install
+bootctl install  
 
-nvim /boot/loader/entries/arch.conf
+nvim /boot/loader/entries/arch.conf  
 
--Type the following
+-Type the following  
 
-title Arch Linux
-linux /vmlinuz-linux
-initrd /intel-ucode.img
-initrd /initramfs-linux.img
+title Arch Linux  
+linux /vmlinuz-linux  
+initrd /intel-ucode.img  
+initrd /initramfs-linux.img  
 
-echo "options root=PARTUUID=$(blkid -s PARTUUID -o valeu /dev/sdXY<the /-root partition>) rw >> /boot/loader/entries/arch.conf
+echo "options root=PARTUUID=$(blkid -s PARTUUID -o valeu /dev/sdXY<the /-root partition>) rw >> /boot/loader/entries/arch.conf  
 
-exit
-umount -R /mnt
+exit  
+umount -R /mnt  
 
--touchpad support
+-touchpad support  
 
-sudo pacman -S xf86-input-synaptics
+sudo pacman -S xf86-input-synaptics  
 
--video drivers
+-video drivers  
 
-sudo pacman -S mesa lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader ocl-icd lib32-ocl-icd intel-compute-runtime
+sudo pacman -S mesa lib32-mesa vulkan-intel lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader ocl-icd lib32-ocl-icd intel-compute-runtime  
 
--Xorg
+-Xorg  
 
-sudo pacman -S xorg-server xorg-xinit
+sudo pacman -S xorg-server xorg-xinit  
 
-or
+or  
 
-sudo pacman -S xorg-server xorg-apps xorg-xinit | xorg
+sudo pacman -S xorg-server xorg-apps xorg-xinit | xorg  
 
--installing dwm/st/dmenu and yay
+-installing dwm/st/dmenu and yay  
 
-sudo pacman -S git
+sudo pacman -S git  
 
-cd ~
+cd ~  
 
-git clone https://aur.archlinux.org/yay-git.git
+git clone https://aur.archlinux.org/yay-git.git  
 
-cd yay-git
+cd yay-git  
 
-makepkg -si
+makepkg -si  
 
-cd ~
+cd ~  
 
-/*chown -R <username>:<username> /usr/src*/
+/*chown -R <username>:<username> /usr/src*/  
 
-git clone https://git.suckless.org/dwm
-git clone https://git.suckless.org/st
-git clone https://git.suckless.org/dmenu
+git clone https://git.suckless.org/dwm  
+git clone https://git.suckless.org/st  
+git clone https://git.suckless.org/dmenu  
 
-cd dwm | st | dmenu
-sudo make clean install
+cd dwm | st | dmenu  
+sudo make clean install  
 
-sudo pacman -S lightdm
+sudo pacman -S lightdm  
 
-yay -S lightdm-webkit2-greeter lightdm-webkit-theme-aether
+yay -S lightdm-webkit2-greeter lightdm-webkit-theme-aether  
 
-or
+or  
 
-sudo pacman -S lightdm-gtk-greeter
+sudo pacman -S lightdm-gtk-greeter  
 
-nvim /etc/lightdm/lightdm.conf
+nvim /etc/lightdm/lightdm.conf  
 
-greeter-session=lightdm-webkit2-greeter or lightdm-gtk-greeter
+greeter-session=lightdm-webkit2-greeter or lightdm-gtk-greeter  
 
-nvim /etc/lightdm/lightdm-erbkit2-greeter.conf
+nvim /etc/lightdm/lightdm-erbkit2-greeter.conf  
 
-webkit_theme=lightdm-webkit-theme-aether
+webkit_theme=lightdm-webkit-theme-aether  
 
-sudo systemctl enable lightdm
+sudo systemctl enable lightdm  
 
-sudo pacman -S ccache
+sudo pacman -S ccache  
 
-sudo nvim /etc/makepkg.conf
+sudo nvim /etc/makepkg.conf  
 
--find BUILDENV=
--remove the ! in front of ccache
--find MAKEFLAGS=
--un-comment and change
+-find BUILDENV=  
+-remove the ! in front of ccache  
+-find MAKEFLAGS=  
+-un-comment and change  
 
-MAKEFLAGS="-j$(nproc)"
+MAKEFLAGS="-j$(nproc)"  
 
-nvim ~/.bashrc
+nvim ~/.bashrc  
 
-export PATH=$PATH:/usr/lib/ccache/bin
-export MAKEFLAGS="-j$(nproc)"
-export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:/usr/lib/ccache/bin  
+export MAKEFLAGS="-j$(nproc)"  
+export PATH=$PATH:$HOME/bin  
+export PATH=$PATH:$HOME/.local/bin  
 
 
 
-htop
-git
-nnn
-wget
-pulseaudio
-pulsemixer
-pulseaudio-alsa
-(suckless)sxiv
-(suckless)mpv
-(suckless)zathura
-ntfs-3g
-pacman-contrib
-ncdu
-libva-intel-driver
-lib32-libva-intel-driver
-sxiv
-mpv
-shotgun
-slock
-redshift
-alsa-utils
-ttf-symbola
-ttf-joypixels
-ttf-inconsolata
-noto-fonts
+htop  
+git  
+nnn  
+wget  
+pulseaudio  
+pulsemixer  
+pulseaudio-alsa  
+(suckless)sxiv  
+(suckless)mpv  
+(suckless)zathura  
+ntfs-3g  
+pacman-contrib  
+ncdu  
+libva-intel-driver  
+lib32-libva-intel-driver  
+shotgun  
+slock  
+redshift  
+alsa-utils  
+ttf-symbola  
+ttf-joypixels  
+ttf-inconsolata  
+noto-fonts  
 
 
+ls -l  
+df -h  
+tar -xvf  
+git clone  
+dmenu_path  
+chown -R jhin:jhin  
+chmod +x  
+Created ~/.gnupg/gpg.conf with "keyserver pgp.mit.edu" and it works  
+patch -Np1 -i st-alpha-20180616-0.8.1.diff  
+gcc -lm -o <output>  
+pacman -Rns $(pacman -Qtdq)  
+/opt/resolve/bin/resolve  
+rm -rf  
+cp  
+mv  
+du -hs  
+source  
+xinput  
+xinput --list-props ID  
+xinput set-prop ID PROPID VALUE  
+ls -ltr  
+sys/class/backlight/intel_backlight/brighness  
 
+Adobe source code pro  
+watch sensors  
+terminus-font  
 
+git clone https://git.suckless.org/dwm  
+git clone https://git.suckless.org/st  
+git clone https://git.suckless.org/dmenu  
 
-ls -l
-df -h
-tar -xvf
-git clone
-dmenu_path
-chown -R jhin:jhin
-chmod +x
-Created ~/.gnupg/gpg.conf with "keyserver pgp.mit.edu" and it works
-patch -Np1 -i st-alpha-20180616-0.8.1.diff
-gcc -lm -o <output>
-pacman -Rns $(pacman -Qtdq)
-/opt/resolve/bin/resolve
-rm -rf
-cp
-mv
-du -hs
-source
-xinput
-xinput --list-props ID
-xinput set-prop ID PROPID VALUE
-ls -ltr
-sys/class/backlight/intel_backlight/brighness
+First we check available modes.  
+$ xrandr  
+1440x900       59.9+*   75.0  
+1280x1024      75.0     60.0  
 
-Adobe source code pro
-watch sensors
-terminus-font
+Then we pick the mode, including resolution and refresh rate.  
+$ xrandr -s 1440x900 -r 75  
 
-git clone https://git.suckless.org/dwm
-git clone https://git.suckless.org/st
-git clone https://git.suckless.org/dmenu
+Or just the refresh rate  
+$ xrandr -r 75  
 
-First we check available modes.
-$ xrandr
-1440x900       59.9+*   75.0
-1280x1024      75.0     60.0
-
-Then we pick the mode, including resolution and refresh rate.
-$ xrandr -s 1440x900 -r 75
-
-Or just the refresh rate
-$ xrandr -r 75
-
-Let's see if it worked
-$ xrandr
-1440x900       59.9+    75.0*
-1280x1024      75.0     60.0
+Let's see if it worked  
+$ xrandr  
+1440x900       59.9+    75.0*  
+1280x1024      75.0     60.0  
