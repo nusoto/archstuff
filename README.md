@@ -111,7 +111,7 @@ linux /vmlinuz-linux
 initrd /intel-ucode.img  
 initrd /initramfs-linux.img  
 
-echo "options root=PARTUUID=$(blkid -s PARTUUID -o valeu /dev/sdXY<the /-root partition>) rw >> /boot/loader/entries/arch.conf  
+echo "options root=PARTUUID=$(blkid -s PARTUUID -o valeu /dev/sdXY<the /-root partition>) rw" >> /boot/loader/entries/arch.conf  
 
 exit  
 umount -R /mnt  
