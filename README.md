@@ -213,7 +213,15 @@ alsa-utils
 ttf-symbola  
 ttf-joypixels  
 ttf-inconsolata  
-noto-fonts  
+noto-fonts 
+
+-plasma  
+kscreen 
+kwalletmanager  
+powerdevil  
+plasma-pa 
+plasma-nm
+
 
 
 ls -l  
