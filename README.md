@@ -247,6 +247,8 @@ xinput set-prop ID PROPID VALUE
 ls -ltr  
 sys/class/backlight/intel_backlight/brighness  
 
+Note that many patches make changes config.def.h instead of config.h. Either move those changes also to config.h, or add rm config.h to the clean target in the Makefile.
+
 Adobe source code pro  
 watch sensors  
 terminus-font  
