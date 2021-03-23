@@ -249,6 +249,13 @@ sys/class/backlight/intel_backlight/brighness
 
 Note that many patches make changes config.def.h instead of config.h. Either move those changes also to config.h, or add rm config.h to the clean target in the Makefile.
 
+/* commands */
+static const char *cmdprintscreen[]  = { "shotprint.sh", NULL };
+
+
+static Key keys[] = {
+{ 0,    XK_Print,      spawn,          {.v = cmdprintscreen } },
+
 Adobe source code pro  
 watch sensors  
 terminus-font  
