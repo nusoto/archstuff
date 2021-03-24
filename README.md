@@ -256,6 +256,13 @@ static const char *cmdprintscreen[]  = { "shotprint.sh", NULL };
 static Key keys[] = {
 { 0,    XK_Print,      spawn,          {.v = cmdprintscreen } },
 
+
+Since version 2020.8, Reflector ships with an enableable reflector.service.
+
+The service will run reflector with the parameters specified in /etc/xdg/reflector/reflector.conf
+
+Enable reflector.service to run Reflector on boot. To run it immediately, start the service.
+
 Adobe source code pro  
 watch sensors  
 terminus-font  
