@@ -207,13 +207,15 @@ ncdu
 libva-intel-driver  
 lib32-libva-intel-driver  
 shotgun  
-slock  
+-slock  
+xsecurelock
 redshift  
 alsa-utils  
 ttf-symbola  
 ttf-joypixels  
 ttf-inconsolata  
 noto-fonts 
+xorg-xev
 
 -plasma  
 kscreen 
