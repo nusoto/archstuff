@@ -265,6 +265,8 @@ The service will run reflector with the parameters specified in /etc/xdg/reflect
 
 Enable reflector.service to run Reflector on boot. To run it immediately, start the service.
 
+http://blog.evaldojunior.com.br/aulas/blog/shell%20script/2011/05/08/shell-script-parte-2-controle-de-fluxo.html
+
 Adobe source code pro  
 watch sensors  
 terminus-font  
