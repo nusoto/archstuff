@@ -249,6 +249,25 @@ xinput --list-props ID
 xinput set-prop ID PROPID VALUE  
 ls -ltr  
 sys/class/backlight/intel_backlight/brighness  
+quilt delete -r 04_hyphen-manpage.diff
+quilt push
+quilt pop -a
+quilt push 03_manpage.diff
+quilt applied
+quilt unapplied
+quilt next
+quilt series
+
+
+When you already have a patch series, you can navigate in the stack of patches so that any subset of consecutive patches (starting from the bottom) can be applied. quilt series will list all patches known by quilt.
+
+You can apply all patches with quilt push -a or unapply them all with quilt pop -a. You can also verify what patches are applied (quilt applied) or unapplied (quilt unapplied). quilt push applies the next unapplied patch (i.e. the patch returned by quilt next) and quilt pop unapplies the last applied patch (i.e. the patch returned by quilt top). You can give a patch name as parameter to quilt push/pop and it will apply/unapply all the patches required until the given patch is on the top.
+
+If someone else already prepared a patch, you can just import it right away with quilt import /tmp/the-patch. If you want to import it under a better name you can use the option “-P better-patch-name”. Like quilt new, it inserts the patch after the topmost patch.
+
+
+
+
 
 Note that many patches make changes config.def.h instead of config.h. Either move those changes also to config.h, or add rm config.h to the clean target in the Makefile.
 
@@ -267,6 +286,8 @@ The service will run reflector with the parameters specified in /etc/xdg/reflect
 Enable reflector.service to run Reflector on boot. To run it immediately, start the service.
 
 http://blog.evaldojunior.com.br/aulas/blog/shell%20script/2011/05/08/shell-script-parte-2-controle-de-fluxo.html
+
+https://raphaelhertzog.com/2012/08/08/how-to-use-quilt-to-manage-patches-in-debian-packages/
 
 Adobe source code pro  
 watch sensors  
