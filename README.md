@@ -216,6 +216,7 @@ ttf-joypixels
 ttf-inconsolata  
 noto-fonts 
 xorg-xev
+quilt
 
 -plasma  
 kscreen 
