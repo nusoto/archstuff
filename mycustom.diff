@@ -1,0 +1,41 @@
+--- a/config.def.h	2021-04-07 11:01:05.301394438 -0300
++++ b/config_new.def.h	2021-04-07 13:37:04.278778511 -0300
+@@ -45,6 +45,12 @@ static const Layout layouts[] = {
+ 
+ /* key definitions */
+ #define MODKEY Mod1Mask
++#define XF86AudioLowerVolume 0x1008FF11
++#define XF86AudioMute 0x1008FF12
++#define XF86AudioRaiseVolume 0x1008FF13
++#define XF86AudioPlay 0x1008FF14
++#define XF86AudioPrev 0x1008FF16
++#define XF86AudioNext 0x1008FF17
+ #define TAGKEYS(KEY,TAG) \
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -58,9 +64,25 @@ static const Layout layouts[] = {
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+ static const char *termcmd[]  = { "st", NULL };
++static const char *cmdprintscreen[] = { "shotscript.sh", NULL };
++static const char *lkscreen[] = { "xsecurelock", NULL };
++static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",     NULL };
++static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",     NULL };
++static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
++static const char *playerctlplay[] = { "playerctl", "--player=spotify,%any", "play-pause",  NULL };
++static const char *playerctlnext[] = { "playerctl", "--player=spotify,%any", "next",  NULL };
++static const char *playerctlprev[] = { "playerctl", "--player=spotify,%any", "previous",  NULL };
+ 
+ static Key keys[] = {
+ 	/* modifier                     key        function        argument */
++	{ 0,                        XK_Print,      spawn,          {.v = cmdprintscreen } },
++	{ MODKEY,                   XK_Pause,      spawn,          {.v = lkscreen } },
++	{ 0,            XF86AudioLowerVolume,      spawn,          {.v = downvol } },
++	{ 0,                   XF86AudioMute,      spawn,          {.v = mutevol } },
++	{ 0,            XF86AudioRaiseVolume,      spawn,          {.v = upvol   } },
++	{ 0,                  XF86AudioPlay,       spawn,          {.v = playerctlplay   } },
++	{ 0,                  XF86AudioPrev,       spawn,          {.v = playerctlprev   } },
++	{ 0,                  XF86AudioNext,       spawn,          {.v = playerctlnext   } },
+ 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+ 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+ 	{ MODKEY,                       XK_b,      togglebar,      {0} },
