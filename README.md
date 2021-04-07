@@ -217,6 +217,7 @@ ttf-inconsolata
 noto-fonts  
 xorg-xev  
 quilt  
+playerctl  
 
 -plasma  
 kscreen 
