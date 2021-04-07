@@ -258,6 +258,8 @@ quilt applied
 quilt unapplied  
 quilt next  
 quilt series  
+quilt import x.diff
+diff -pu original changed > x.diff
 
 
 When you already have a patch series, you can navigate in the stack of patches so that any subset of consecutive patches (starting from the bottom) can be applied. quilt series will list all patches known by quilt.  
