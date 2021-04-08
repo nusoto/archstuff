@@ -218,6 +218,7 @@ noto-fonts
 xorg-xev  
 quilt  
 playerctl  
+(aur)inxi  
 
 -plasma  
 kscreen 
